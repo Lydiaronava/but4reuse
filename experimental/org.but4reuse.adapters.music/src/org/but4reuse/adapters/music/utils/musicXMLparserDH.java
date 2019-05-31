@@ -46,8 +46,8 @@ public class musicXMLparserDH {
 		// rests
 
 		ArrayList<Integer> voicesIndex = new ArrayList<Integer>(); // list of
-																	// unique
-																	// voices
+		// unique
+		// voices
 		ArrayList<String> song = new ArrayList<String>();
 		notesOfSong = new ArrayList<Note>();
 
@@ -88,6 +88,18 @@ public class musicXMLparserDH {
 
 	public ArrayList<Note> getNotesOfSong() {
 		return notesOfSong;
+	}
+
+	public int getFifths() {
+		return Integer.valueOf(this.doc.getElementsByTag("fifths").text());
+	}
+
+	public String getMode() {
+		return this.doc.getElementsByTag("mode").text();
+	}
+
+	public int getDivisions() {
+		return Integer.valueOf(this.doc.getElementsByTag("divisions").text());
 	}
 
 	private String[] setSongArrayOfStrings(ArrayList<Note> notesOfSong) {
@@ -155,8 +167,8 @@ public class musicXMLparserDH {
 
 		ArrayList<Integer> voices = new ArrayList<Integer>();
 		ArrayList<Integer> voicesIndex = new ArrayList<Integer>(); // list of
-																	// unique
-																	// voices
+		// unique
+		// voices
 
 		voices.clear();
 

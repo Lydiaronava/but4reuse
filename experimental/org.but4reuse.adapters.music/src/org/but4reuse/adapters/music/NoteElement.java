@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.but4reuse.adapters.IElement;
 import org.but4reuse.adapters.impl.AbstractElement;
 import org.but4reuse.adapters.music.utils.Note;
+import org.but4reuse.adapters.music.utils.NoteUtils;
 
 /**
  * Note Element
@@ -14,10 +15,24 @@ import org.but4reuse.adapters.music.utils.Note;
 public class NoteElement extends AbstractElement {
 
 	public Note note;
+	public String key;
+	public int distance;
 
 	public NoteElement(Note note) {
 		super();
 		this.note = note;
+	}
+
+	public NoteElement(Note note, String key) {
+		super();
+		this.note = note;
+		this.key = key;
+
+		if (key.contains("M") || key.contains("m")) {
+			key = key.substring(0, key.length() - 1);
+		}
+
+		distance = NoteUtils.distance(note.getPitch() + note.getAccidental(), key);
 	}
 
 	@Override
@@ -34,8 +49,12 @@ public class NoteElement extends AbstractElement {
 			if (another.note.getPart().equals(note.getPart()) && another.note.getMeasure().equals(note.getMeasure())) {
 				if (another.note.getStartRelativeToMeasure() == note.getStartRelativeToMeasure()
 						&& another.note.getDurationRelativeToMeasure() == note.getDurationRelativeToMeasure()
-						&& another.note.getPitch().equals(note.getPitch())
-						&& another.note.getAccidental().equals(note.getAccidental())
+						/* && another.note.getPitch().equals(note.getPitch()) */
+						&& distance == another.distance
+						/*
+						 * && another.note.getAccidental().equals(note.
+						 * getAccidental())
+						 */
 						&& another.note.isGrace() == note.isGrace()) {
 					if (another.note.isRest()) {
 						// This is enough for two silences
@@ -63,7 +82,12 @@ public class NoteElement extends AbstractElement {
 
 	@Override
 	public ArrayList<String> getWords() {
-		return new ArrayList<String>();
+		
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add(note.getPitch()+note.getAccidental());
+		
+		return list;
 	}
 
 }

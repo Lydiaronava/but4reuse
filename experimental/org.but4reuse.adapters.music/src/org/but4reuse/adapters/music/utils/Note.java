@@ -22,6 +22,11 @@ public class Note {
 	private boolean grace;
 	private boolean staccato;
 
+	public Note(String pitch, String alter) {
+		this.pitch = pitch;
+		this.accidental = alter;
+	}
+
 	public void setCounter(Integer counter) {
 		this.counter = counter;
 	}
@@ -42,6 +47,10 @@ public class Note {
 		this.startTime = startTime;
 		this.accidental = "";
 
+	}
+
+	public Note(String pitch) {
+		this.pitch = pitch;
 	}
 
 	public void setStartTime(Integer startTime) {
@@ -160,6 +169,10 @@ public class Note {
 		this.staccato = staccato;
 	}
 
+	public boolean equals(Note n) {
+		return (getPitch() + getAccidental()).equals(n.getPitch() + n.getAccidental());
+	}
+
 	@Override
 	public String toString() {
 		String info = " Silence";
@@ -174,9 +187,20 @@ public class Note {
 		if (isDot()) {
 			dot = " Dot";
 		}
-		return "Part: " + getPart() + " Measure: " + getMeasure() + info + " Type: " + getType() + dot + grace
-				+ " Duration: " + getDuration() + " Voice: " + getVoice() + " StartRelativeToMeasure: "
-				+ getStartRelativeToMeasure() + " DurationRelativeToMeasure: " + getDurationRelativeToMeasure();
+		/*
+		 * return "Part: " + getPart() + " Measure: " + getMeasure() + info +
+		 * " Type: " + getType() + dot + grace + " Duration: " + getDuration() +
+		 * " Voice: " + getVoice() + " StartRelativeToMeasure: " +
+		 * getStartRelativeToMeasure() + " DurationRelativeToMeasure: " +
+		 * getDurationRelativeToMeasure();
+		 */
+		/*
+		 * return " Measure: " + getMeasure() + info +
+		 * " StartRelativeToMeasure: " + getStartRelativeToMeasure() +
+		 * " DurationRelativeToMeasure: " + getDurationRelativeToMeasure() +
+		 * "\n";
+		 */
+		return getPitch() + getAccidental();
 	}
 
 }
